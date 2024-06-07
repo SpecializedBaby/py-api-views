@@ -4,8 +4,8 @@ from rest_framework.routers import DefaultRouter
 from cinema.views import (
     MovieViewSet,
     CinemaHallViewSet,
-    ActorDetailUpdateDelete,
-    ActorListCreateView,
+    ActorList,
+    ActorDetail,
     GenreDetail,
     GenreList,
 )
@@ -13,15 +13,11 @@ from cinema.views import (
 
 router = DefaultRouter()
 router.register(r"movies", MovieViewSet, basename="movie")
-router.register(r"cinema-halls", CinemaHallViewSet, basename="cinema-hall")
+router.register(r"cinema_halls", CinemaHallViewSet, basename="cinema-hall")
 
 urlpatterns = [
-    path("actors/", ActorListCreateView.as_view(), name="actor-list-create"),
-    path(
-        "actors/<int:pk>/",
-        ActorDetailUpdateDelete.as_view(),
-        name="actor-detail"
-    ),
+    path("actors/", ActorList.as_view(), name="actor-list-create"),
+    path("actors/<int:pk>/", ActorDetail.as_view(), name="actor-detail"),
     path("genres/", GenreList.as_view(), name="genre-list-create"),
     path("genres/<int:pk>/", GenreDetail.as_view(), name="genre-detail"),
 ] + router.urls
