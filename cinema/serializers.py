@@ -6,7 +6,8 @@ from cinema.models import Movie, Genre, Actor, CinemaHall
 
 class GenreSerializer(serializers.ModelSerializer):
     name = serializers.CharField(
-        max_length=64, validators=[UniqueValidator(queryset=Genre.objects.all())]
+        max_length=64,
+        validators=[UniqueValidator(queryset=Genre.objects.all())]
     )
 
     class Meta:
@@ -22,8 +23,14 @@ class ActorSerializer(serializers.Serializer):
         return Actor.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.first_name = validated_data.get("first_name", instance.first_name)
-        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.first_name = validated_data.get(
+            "first_name",
+            instance.first_name
+        )
+        instance.last_name = validated_data.get(
+            "last_name",
+            instance.last_name
+        )
         instance.save()
         return instance
 
