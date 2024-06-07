@@ -54,11 +54,7 @@ class GenreDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ActorListCreateView(
-    generics.GenericAPIView,
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-):
+class ActorListCreateView(generics.ListCreateAPIView):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
 
@@ -69,12 +65,7 @@ class ActorListCreateView(
         return self.create(request, *args, **kwargs)
 
 
-class ActorDetailUpdateDelete(
-    generics.GenericAPIView,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-):
+class ActorDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
 
@@ -92,7 +83,8 @@ class ActorDetailUpdateDelete(
 
 
 class CinemaHallViewSet(
-    generics.GenericAPIView,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
