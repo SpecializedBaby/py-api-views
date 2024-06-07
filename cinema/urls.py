@@ -17,7 +17,11 @@ router.register(r"cinema-halls", CinemaHallViewSet, basename="cinema-hall")
 
 urlpatterns = [
     path("actors/", ActorListCreateView.as_view(), name="actor-list-create"),
-    path("actors/<int:pk>/", ActorDetailUpdateDelete.as_view(), name="actor-detail"),
+    path(
+        "actors/<int:pk>/",
+        ActorDetailUpdateDelete.as_view(),
+        name="actor-detail"
+    ),
     path("genres/", GenreList.as_view(), name="genre-list-create"),
     path("genres/<int:pk>/", GenreDetail.as_view(), name="genre-detail"),
 ] + router.urls
